@@ -3,29 +3,46 @@ import React, { Component } from "react";
 class Counter extends Component {
   state = {
     count: 0,
-    // could be list of obj
-    tags: [],
   };
 
-  renderTags() {
-    if (this.state.tags.length === 0) return <p>There are no Tags!</p>;
+  // have to use constructor and bind each function is "old style" but safe, also noisy
+  // constructor() {
+  //   super();
+  //   this.handleIncrement = this.handleIncrement.bind(this);
+  // }
+  // handleIncrement() {
+  //   console.log("Incremented", this.state);
+  // }
 
+  // this style with lamda function is expirimental, but less noisy.
+  handleIncrement = () => {
+    console.log("Incremented", this.state);
+  };
+
+  render() {
+    console.log(this.state.count);
     return (
-      <ul>
-        {this.state.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
+      <div>
+        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary btn-sm"
+        >
+          Increment
+        </button>
+      </div>
     );
   }
 
-  render() {
-    return (
-      <div>
-        {this.state.tags.length === 0 && "Please create a new tag."}
-        {this.renderTags()}
-      </div>
-    );
+  getBadgeClasses() {
+    let classes = "badge m-2 bg-";
+    classes += this.state.count === 0 ? "warning" : "primary";
+    return classes;
+  }
+
+  formatCount() {
+    const { count } = this.state;
+    return count === 0 ? "Zero" : count;
   }
 }
 
