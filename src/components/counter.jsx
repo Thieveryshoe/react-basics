@@ -5,22 +5,11 @@ class Counter extends Component {
     count: 0,
   };
 
-  // have to use constructor and bind each function is "old style" but safe, also noisy
-  // constructor() {
-  //   super();
-  //   this.handleIncrement = this.handleIncrement.bind(this);
-  // }
-  // handleIncrement() {
-  //   console.log("Incremented", this.state);
-  // }
-
-  // this style with lamda function is expirimental, but less noisy.
   handleIncrement = () => {
-    console.log("Incremented", this.state);
+    this.setState({ count: this.state.count + 1 });
   };
 
   render() {
-    console.log(this.state.count);
     return (
       <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
